@@ -7,7 +7,7 @@ CREATE TABLE tipo_usuario(
     descricao VARCHAR(50) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL
-)
+);
 
 CREATE TABLE usuario(
     id SMALLINT PRIMARY KEY IDENTITY,
@@ -19,11 +19,12 @@ CREATE TABLE usuario(
     usuario_ultima_alteracao INT,
     data_ultima_alteracao DATETIME,
     CONSTRAINT fk_usuario_tipo_usuario FOREIGN KEY (id_tipo_usuario) REFERENCES tipo_usuario(id)
-)
+);
 
 CREATE TABLE turma (
-    id SMALLINT PRIMARY KEY IDENTITY,
+    id SMALLINT PRIMARY KEY,
     nome VARCHAR(60) NOT NULL,
+    turno VARCHAR(10) NOT NULL,
     numero_vagas SMALLINT NOT NULL,
     ano DATE NOT NULL,
     valor DECIMAL(5,2) NOT NULL,
@@ -36,24 +37,24 @@ CREATE TABLE turma (
 
 CREATE TABLE disciplina (
     id SMALLINT PRIMARY KEY IDENTITY,
-    id_turma SMALLINT NOT NULL,
     nome VARCHAR(60) NOT NULL,
     descricao VARCHAR(150) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
     data_ultima_alteracao DATETIME,
-    CONSTRAINT fk_turma FOREIGN KEY (id_turma) REFERENCES turma(id)
 );
 
 CREATE TABLE nota (
     id INT PRIMARY KEY IDENTITY,
+    id_aluno_matricula INT NOT NULL,
     id_disciplina SMALLINT NOT NULL,
     nota DECIMAL(3,1) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
     data_ultima_alteracao DATETIME,
+    CONSTRAINT fk_aluno_matricula FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id),
     CONSTRAINT fk_disciplina FOREIGN KEY (id_disciplina) REFERENCES disciplina(id)
 );
 
@@ -87,10 +88,10 @@ CREATE TABLE responsavel_contato (
 );
 
 CREATE TABLE cota_sazonal (
-    id SMALLINT PRIMARY KEY IDENTITY,
-    descricao VARCHAR(160) NOT NULL,
+    id SMALLINT PRIMARY KEY,
+    mes_festividade VARCHAR(20) NOT NULL,
+    descricao VARCHAR(60) NOT NULL,
     data_pagamento DATETIME NOT NULL,
-    valor DECIMAL(5,2) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -113,11 +114,11 @@ CREATE TABLE mensalidade(
     data_ultima_alteracao DATETIME,
     CONSTRAINT fk_turma_dois FOREIGN KEY (id_turma) REFERENCES turma(id),
     CONSTRAINT fk_responsalvel FOREIGN KEY (id_responsavel) REFERENCES responsavel (id),
-    CONSTRAINT fk_sazonal FOREIGN KEY (id_cota_sazonal) REFERENCES cota_sazonal(id)
+    CONSTRAINT fk_cota_sazonal FOREIGN KEY (id_cota_sazonal) REFERENCES cota_sazonal(id)
 );
 
 CREATE TABLE estado (
-    id TINYINT PRIMARY KEY IDENTITY,
+    id TINYINT PRIMARY KEY,
     uf CHAR(2) NOT NULL
 );
 
@@ -135,11 +136,9 @@ CREATE TABLE responsavel_endereco (
     logradouro VARCHAR(60) NOT NULL,
     bairro VARCHAR(60) NOT NULL,
     numero VARCHAR(10) NOT NULL,
-    complemento VARCHAR(35) NOT NULL,
+    complemento VARCHAR(35),
     cep BIGINT NOT NULL,
     ponto_referencia VARCHAR(120) NOT NULL,
-    cidade VARCHAR(60) NOT NULL,
-    uf CHAR(2) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -147,10 +146,9 @@ CREATE TABLE responsavel_endereco (
 );
 
 CREATE TABLE aluno_bolsa (
-    id SMALLINT PRIMARY KEY IDENTITY,
+    id SMALLINT PRIMARY KEY,
     modalidade VARCHAR(30) NOT NULL,
-    percentual DECIMAL(3,1) NOT NULL,
-    status TINYINT NOT NULL,
+    percentual DECIMAL(4,1) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -251,13 +249,12 @@ CREATE TABLE aula (
     data_cadastro DATETIME,
     CONSTRAINT fk_professor_quatro FOREIGN KEY (id_professor) REFERENCES professor(id),
     CONSTRAINT fk_turma_quatro FOREIGN KEY (id_turma) REFERENCES turma(id),
-    CONSTRAINT fk_aluno_matricula FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id)
+    CONSTRAINT fk_aluno_matricula_dois FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id)
 );
 
 CREATE TABLE responsavel_aluno (
     id_responsavel INT NOT NULL,
     id_aluno_matricula INT NOT NULL,
     CONSTRAINT fk_responsavel_dois FOREIGN KEY (id_responsavel) REFERENCES responsavel(id),
-    CONSTRAINT fk_aluno_matricula_dois FOREIGN KEY (id_aluno_matricula) REFERENCES matricula_aluno(id)
+    CONSTRAINT fk_aluno_matricula_tres FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id)
 );
-
