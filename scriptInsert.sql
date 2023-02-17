@@ -72,12 +72,15 @@ INSERT INTO turma VALUES
 (44, '9º ano B', 'Tarde', 50, '20220101', 3000.00, 'Sala 20', 1, '20220101 07:00:00');
 
 INSERT INTO disciplina VALUES
-('Português', 'Disciplina que trabalha o desenvolvimento da língua portuguesa, incluindo gramática, literatura e redação', 1, '20220217 10:00:00'),
-('Matemática', 'Disciplina que estuda a lógica e os números, incluindo cálculo, álgebra e geometria', 1, '20220217 10:00:00'),
-('Geografia', 'Disciplina que estuda o espaço geográfico, incluindo aspectos físicos e humanos', 1, '20220217 10:00:00'),
-('História', 'Disciplina que estuda o passado da humanidade, incluindo fatos, culturas e sociedades', 1, '20220217 10:00:00'),
-('Biologia', 'Disciplina que estuda os seres vivos e os processos biológicos', 1, '20220217 10:00:00'),
-('Educação Física', 'Disciplina que trabalha o desenvolvimento físico, motor e cognitivo dos alunos', 1, '20220217 10:00:00');
+(1, 'Língua Portuguesa', 'Disciplina que trabalha o desenvolvimento da língua portuguesa, incluindo gramática, literatura e redação', 1, '20220217 10:00:00'),
+(2, 'Matemática', 'Disciplina que estuda a lógica e os números, incluindo cálculo, álgebra e geometria', 1, '20220217 10:00:00'),
+(3, 'Geografia', 'Disciplina que estuda o espaço geográfico, incluindo aspectos físicos e humanos', 1, '20220217 10:00:00'),
+(4, 'História', 'Disciplina que estuda o passado da humanidade, incluindo fatos, culturas e sociedades', 1, '20220217 10:00:00'),
+(5, 'Ciências', 'Disciplina que ajuda a desenvolver uma compreensão básica dos princípios científicos e do método científico, bem como a promover o pensamento crítico e a curiosidade sobre o mundo natural.', 1, '20220217 10:00:00'),
+(6, 'Língua Inglesa', 'Disciplina que trabalha o desenvolvimento da língua inglesa, incluindo gramática, literatura, redação e conversação em grupo', 1, '20220217 10:00:00'),
+(7, 'Educação Física', 'Disciplina que trabalha o desenvolvimento físico, motor e cognitivo dos alunos', 1, '20220217 10:00:00'),
+(8, 'Ensino Religioso', 'Disciplina que visa ensinar aos alunos sobre as principais religiões do mundo e suas crenças, práticas e valores.', 1, '20220217 10:00:00');
+(9, 'Arte', 'Disciplina que tem o objetido de ajudar os alunos a desenvolver habilidades criativas, expressivas e críticas, bem como promover a apreciação da arte e da cultura.', 1, '20220217 10:00:00');
 
 INSERT INTO nota VALUES
 (1, 1, 8.7, 1, '20220215 10:00:00'),
@@ -200,7 +203,8 @@ INSERT INTO cota_sazonal VALUES
 (8, 'Dezembro', 'Natal', '20221210', 1, '20200201 08:00:00');
 
 INSERT INTO mensalidade VALUES
-()
+(id_aluno_matricula, id_responsavel,id_turma, id_cota_sazonal, data_vencimento, data_pagamento)
+(22, 44, )
 
 INSERT INTO estado VALUES
 (1, 'AC'),
@@ -329,6 +333,8 @@ INSERT INTO professor VALUES
 ('Cézar','Gonçalves','Mestrado em História',1,'20515902977',3108.00,1,'20230208 13:10:03', null, null),
 ('Baltazar','da Costa','Licenciatura em Sociologia',1,'20515902995',2334.00,1,'20230208 13:10:03', null, null),
 ('Caio','Barbosa','Pedagogia',1,'20515902833',2326.00,1,'20230208 13:10:03', null, null),
+('Amanda','Pontes','Licenciatura em Educação Física',1,'65368702815',2326.00,1,'20230208 13:10:03', null, null),
+('Paula','Alves','Licenciatura em Artes',1,'21132102815',2326.00,1,'20230208 13:10:03', null, null),
 ('Luiz','Fernandes','Pedagogia',1,'20515902851',2326.00,1,'20230208 13:10:03', null, null),
 ('Maria','Santana','Pedagogia',1,'20515903013',2326.00,1,'20230208 13:10:03', null, null),
 ('David','Gomes','Pedagogia',1,'20515902509',2326.00,1,'20230208 13:10:03', null, null),
@@ -341,14 +347,24 @@ INSERT INTO professor VALUES
 ('Beatriz','Lima','Pedagogia',1,'20515902635',2326.00,1,'20230208 13:10:03', null, null),
 ('Elizabete','Ferreira','Pedagogia',1,'20515902653',2326.00,1,'20230208 13:10:03', null, null),
 ('Raimunda','Rodrigues','Pedagogia',1,'20515902671',2326.00,1,'20230208 13:10:03', null, null),
+('Paula','Alves','Licenciatura em Artes',1,'21132102815',2326.00,1,'20230208 13:10:03', null, null),
 ('Tadeu','da Costa Martins','Pedagogia',1,'20515902689',2326.00,1,'20230208 13:10:03', null, null),
+('Bruno','Santos','Licenciatura em História',1,'87968702815',2326.00,1,'20230208 13:10:03', null, null),
 ('Joarez','Diniz','Pedagogia',1,'20515902707',2326.00,1,'20230208 13:10:03', null, null),
 ('Leonardo','Marques','Pedagogia',1,'20515902725',2326.00,1,'20230208 13:10:03', null, null),
+('Lúcia','Farias','Licenciatura em Matemática',1,'20515902815',2326.00,1,'20230208 13:10:03', null, null),
+('Luiz','Lima','Licenciatura em Letras Português',1,'21168702815',2326.00,1,'20230208 13:10:03', null, null),
 ('Bruno','Diniz','Pedagogia',1,'20515902743',2326.00,1,'20230208 13:10:03', null, null),
 ('Cézar','Marques','Pedagogia',1,'20515902761',2326.00,1,'20230208 13:10:03', null, null),
 ('Romeu','Diniz','Pedagogia',1,'20515902779',2326.00,1,'20230208 13:10:03', null, null),
 ('Bartolomeu','Marques','Pedagogia',1,'20515902797',2326.00,1,'20230208 13:10:03', null, null),
-('Giraldo','Rocha','Pedagogia',1,'20515902815',2326.00,1,'20230208 13:10:03', null, null);
+('Giraldo','Rocha','Pedagogia',1,'20515902815',2326.00,1,'20230208 13:10:03', null, null),
+('Arnaldo','Costa','Licenciatura em Geografia',1,'21895902815',2326.00,1,'20230208 13:10:03', null, null);
+
+
+
+
+
 
 INSERT INTO professor_endereco VALUES
 ()
@@ -360,9 +376,6 @@ INSERT INTO ponto VALUES
 ()
 
 INSERT INTO aluno_matricula VALUES
-()
-
-INSERT INTO aula VALUES
 ()
 
 INSERT INTO responsavel_aluno VALUES
