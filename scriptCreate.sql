@@ -45,6 +45,38 @@ CREATE TABLE disciplina (
     data_ultima_alteracao DATETIME,
 );
 
+CREATE TABLE aluno_bolsa (
+    id SMALLINT PRIMARY KEY,
+    modalidade VARCHAR(30) NOT NULL,
+    percentual DECIMAL(4,1) NOT NULL,
+    usuario_cadastro INT NOT NULL,
+    data_cadastro DATETIME NOT NULL,
+    usuario_ultima_alteracao INT,
+    data_ultima_alteracao DATETIME
+);
+
+CREATE TABLE aluno_matricula (
+    id INT PRIMARY KEY IDENTITY,
+    id_turma SMALLINT NOT NULL,
+    id_aluno_bolsa SMALLINT,
+    valor DECIMAL(7,2) NOT NULL,
+    data DATETIME NOT NULL,
+    status TINYINT NOT NULL,
+    nome VARCHAR(60) NOT NULL,
+    sobrenome VARCHAR(60) NOT NULL,
+    nascimento DATE NOT NULL,
+    rg VARCHAR(10),
+    cpf CHAR(11),
+    alergia VARCHAR(160),
+    auto_responsavel TINYINT NOT NULL,
+    usuario_cadastro INT NOT NULL,
+    data_cadastro DATETIME NOT NULL,
+    usuario_ultima_ateracao INT,
+    data_ultima_alteracao DATETIME,
+    CONSTRAINT fk_turma_dois FOREIGN KEY (id_turma) REFERENCES turma(id),
+    CONSTRAINT fk_aluno_bolsa FOREIGN KEY (id_aluno_bolsa) REFERENCES aluno_bolsa(id)
+);
+
 CREATE TABLE nota (
     id INT PRIMARY KEY IDENTITY,
     id_aluno_matricula INT NOT NULL,
@@ -74,6 +106,13 @@ CREATE TABLE responsavel (
     data_ultima_alteracao DATETIME
 );
 
+CREATE TABLE responsavel_aluno (
+    id_aluno_matricula INT NOT NULL,
+    id_responsavel INT NOT NULL,
+    CONSTRAINT fk_aluno_matricula_quatro FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id),
+	CONSTRAINT fk_responsavel FOREIGN KEY (id_responsavel) REFERENCES responsavel(id)
+);
+
 CREATE TABLE responsavel_contato (
     id INT PRIMARY KEY IDENTITY,
     id_responsavel INT NOT NULL,
@@ -84,14 +123,14 @@ CREATE TABLE responsavel_contato (
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
     data_ultima_alteracao DATETIME,
-    CONSTRAINT fk_responsavel FOREIGN KEY (id_responsavel) REFERENCES responsavel(id)
+    CONSTRAINT fk_responsavel_dois FOREIGN KEY (id_responsavel) REFERENCES responsavel(id)
 );
 
 CREATE TABLE cota_sazonal (
     id SMALLINT PRIMARY KEY,
     mes_festividade VARCHAR(20) NOT NULL,
     descricao VARCHAR(60) NOT NULL,
-    data_pagamento DATETIME NOT NULL,
+    data_pagamento DATE NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -111,7 +150,7 @@ CREATE TABLE mensalidade(
     usuario_ultima_alteracao INT,
     data_ultima_alteracao DATETIME,
     CONSTRAINT fk_aluno_matricula_dois FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id),
-    CONSTRAINT fk_responsalvel FOREIGN KEY (id_responsavel) REFERENCES responsavel (id),
+    CONSTRAINT fk_responsavel_tres FOREIGN KEY (id_responsavel) REFERENCES responsavel (id),
     CONSTRAINT fk_turma FOREIGN KEY (id_turma) REFERENCES turma(id),
     CONSTRAINT fk_cota_sazonal FOREIGN KEY (id_cota_sazonal) REFERENCES cota_sazonal(id)
 );
@@ -138,16 +177,6 @@ CREATE TABLE responsavel_endereco (
     complemento VARCHAR(35),
     cep BIGINT NOT NULL,
     ponto_referencia VARCHAR(120) NOT NULL,
-    usuario_cadastro INT NOT NULL,
-    data_cadastro DATETIME NOT NULL,
-    usuario_ultima_alteracao INT,
-    data_ultima_alteracao DATETIME
-);
-
-CREATE TABLE aluno_bolsa (
-    id SMALLINT PRIMARY KEY,
-    modalidade VARCHAR(30) NOT NULL,
-    percentual DECIMAL(4,1) NOT NULL,
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -206,8 +235,8 @@ CREATE TABLE ponto (
     total_horas INT NOT NULL,
     horario_entrada TIME NOT NULL,
     horario_saida TIME NOT NULL,
-    data_falta DATE NOT NULL,
-    justificativa_falta VARCHAR(100) NOT NULL,
+    data_falta DATE,
+    justificativa_falta VARCHAR(100),
     usuario_cadastro INT NOT NULL,
     data_cadastro DATETIME NOT NULL,
     usuario_ultima_alteracao INT,
@@ -215,32 +244,3 @@ CREATE TABLE ponto (
     CONSTRAINT fk_professor_tres FOREIGN KEY (id_professor) REFERENCES professor(id)
 );
 
-CREATE TABLE aluno_matricula (
-    id INT PRIMARY KEY IDENTITY,
-    id_turma SMALLINT NOT NULL,
-    id_aluno_bolsa SMALLINT,
-    valor DECIMAL(7,2) NOT NULL,
-    data DATETIME NOT NULL,
-    status TINYINT NOT NULL,
-    ano DATE NOT NULL,
-    nome VARCHAR(60) NOT NULL,
-    sobrenome VARCHAR(60) NOT NULL,
-    nascimento DATE NOT NULL,
-    rg VARCHAR(10) UNIQUE,
-    cpf CHAR(11) UNIQUE,
-    alergia VARCHAR(160),
-    auto_responsavel TINYINT NOT NULL,
-    usuario_cadastro INT NOT NULL,
-    data_cadastro DATETIME NOT NULL,
-    usuario_ultima_ateracao INT,
-    data_ultima_alteracao DATETIME,
-    CONSTRAINT fk_turma_dois FOREIGN KEY (id_turma) REFERENCES turma(id),
-    CONSTRAINT fk_aluno_bolsa FOREIGN KEY (id_aluno_bolsa) REFERENCES aluno_bolsa(id)
-);
-
-CREATE TABLE responsavel_aluno (
-    id_responsavel INT NOT NULL,
-    id_aluno_matricula INT NOT NULL,
-    CONSTRAINT fk_responsavel_dois FOREIGN KEY (id_responsavel) REFERENCES responsavel(id),
-    CONSTRAINT fk_aluno_matricula_quatro FOREIGN KEY (id_aluno_matricula) REFERENCES aluno_matricula(id)
-);
